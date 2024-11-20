@@ -1,0 +1,15 @@
+# Ignore test & documentation files.
+docs/
+
+# Ignore Git-related files
+.git/
+.gitignore
+
+# Ignore readme file.
+README.md
+
+# Ignore other files.
+docker-compose.yml
+init.sql
+.env
+
