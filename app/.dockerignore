@@ -1,6 +1,3 @@
-# Ignore test & documentation files.
-docs/
-
 # Ignore Git-related files
 .git/
 .gitignore
@@ -9,7 +6,5 @@ docs/
 README.md
 
 # Ignore other files.
-docker-compose.yml
-init.sql
 .env
 
