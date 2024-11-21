@@ -13,6 +13,10 @@ spec:
       labels:
         app: todo-app
     spec:
+      initContainers:
+      - name: check-database-service
+        image: busybox
+        command: ['sh', '-c', 'until nslookup postgresql-rw.todo-ns.svc.cluster.local; do echo waiting for db service; sleep 2; done;']
       containers:
       - name: todo-app
         image: minex970/todo-app:v1
@@ -49,15 +53,3 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-          initialDelaySeconds: 15
-          periodSeconds: 20
