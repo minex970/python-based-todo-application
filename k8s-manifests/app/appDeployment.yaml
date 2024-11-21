@@ -34,13 +34,11 @@ spec:
               name: postgresql-config
               key: database_name
         - name: DB_USERNAME
-          # value: todo_user
           valueFrom:
             secretKeyRef:
               name: postgresql-cred
               key: username
         - name: DB_PASSWORD
-          # value: password
           valueFrom:
             secretKeyRef:
               name: postgresql-cred
