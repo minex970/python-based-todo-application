@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgresql-init
+  namespace: todo-ns
+data:
+  init.sql: |
+    DROP TABLE IF EXISTS goals;
+    CREATE TABLE IF NOT EXISTS goals (
+      id SERIAL PRIMARY KEY,
+      goal_name VARCHAR(255) NOT NULL
+    );
+    GRANT ALL PRIVILEGES ON TABLE goals TO todo_user;
+    GRANT USAGE, SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public TO todo_user;
