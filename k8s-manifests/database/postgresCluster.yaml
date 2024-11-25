@@ -1,0 +1,19 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgresql
+  namespace: todo-ns
+spec:
+  instances: 3
+  storage:
+    size: 1Gi
+  bootstrap:
+    initdb:
+      database: todo_database
+      owner: todo_user
+      secret:
+        name: postgresql-cred
+      postInitApplicationSQLRefs:
+        configMapRefs:
+        - name: postgresql-init
+          key: init.sql
