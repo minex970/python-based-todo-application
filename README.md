@@ -11,6 +11,7 @@
     Refer to the docs/docker-steps.sh and docs/docker-compose-steps.sh for better understanding.
 
     ```
+    todo-application
     ├── app
     │   ├── app.py
     │   ├── Dockerfile
@@ -25,4 +26,20 @@
     ├── .env.sample
     ├── init.sql
     └── README.md
+    ```
+
+2. Orchestration using [kubernetes](https://minex.hashnode.dev/how-to-deploy-todo-apps-with-kubernetes-a-step-by-step-guide)
+
+    Refer to the docs/kubernetes-steps.sh if needed.
+
+    ```
+    k8s-manifests/
+    ├── app
+    │   ├── appDeployment.yaml
+    │   └── appService.yaml
+    └── database
+        ├── postgresCluster.yaml
+        ├── postgresConfigMap.yaml
+        ├── postgresInitConfigMap.yaml
+        └── postgresSecret.yaml
     ```
