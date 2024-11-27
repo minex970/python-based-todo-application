@@ -5,8 +5,11 @@ echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.i
 apt-get update
 apt-get install k6
 
-# enable metrics server on minikube
+# enable metrics server on minikube cluster
 minikube addons enable metrics-server
+
+# enable metrics server on self-managed cluster
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
 # execute the script with k6 with env variable.
 k6 run -e BASE_URL=http://192.168.59.100:30008/ load-testing.js
