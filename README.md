@@ -43,3 +43,17 @@
         ├── postgresInitConfigMap.yaml
         └── postgresSecret.yaml
     ```
+
+3. Auto-scaling: [HPA in kubernetes](https://minex.hashnode.dev/how-to-auto-scale-todo-apps-on-kubernetes-for-better-performance)
+
+    Refer to the tests/steps.sh if needed.
+
+    ```
+    k8s-manifests/
+    └── auto-scaling
+        └── horizontalPodAutoScaler.yaml
+
+    tests/
+    ├── load-testing.js
+    └── steps.sh
+    ```
