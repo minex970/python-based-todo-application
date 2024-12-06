@@ -34,3 +34,12 @@ SELECT * FROM goals;
 
 # port forward application port
 kubectl port-forward <app-pod-name> 8080:8080
+
+# install nginx ingress controller on cluster
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.9.4/deploy/static/provider/cloud/deploy.yaml
+
+# install nginx ingress controller on minikube
+minikube addons enable ingress
+
+# create the ingress resource
+kubectl apply -f appIngress.yaml
