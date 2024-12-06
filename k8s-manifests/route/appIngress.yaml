@@ -25,3 +25,7 @@ spec:
             name: todo-app-svc
             port:
               number: 80
+  tls:
+  - hosts:
+    - todo.minex.com
+    secretName: todo-tls
