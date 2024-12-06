@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: todo-ingress
+  labels:
+    name: todo-ingress
+  namespace: todo-ns
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: todo.minex.com
+    http:
+      paths:
+      - path: "/"
+        pathType: Prefix
+        backend:
+          service:
+            name: todo-app-svc
+            port:
+              number: 80
+      - path: "/health"
+        pathType: Prefix
+        backend:
+          service:
+            name: todo-app-svc
+            port:
+              number: 80
