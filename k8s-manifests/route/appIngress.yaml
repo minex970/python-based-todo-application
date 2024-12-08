@@ -28,4 +28,5 @@ spec:
   tls:
   - hosts:
     - todo.minex.com
-    secretName: todo-selfsigned
+    # secretName: todo-letsencrypt-tls
+    secretName: todo-selfsigned-tls
