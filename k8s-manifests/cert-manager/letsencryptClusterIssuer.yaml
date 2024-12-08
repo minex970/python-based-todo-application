@@ -1,14 +1,14 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: cert-letsencrypt
+  name: todo-letsencrypt
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
     email: app@minex.com
     # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
-      name: todo-letsencrypt
+      name: todo-letsencrypt-tls
     solvers:
     - http01:
         ingress:
