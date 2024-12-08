@@ -44,11 +44,17 @@ minikube addons enable ingress
 # create the ingress resource
 kubectl apply -f appIngress.yaml
 
-# create self-signed certificate
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -out minex.crt -keyout minex.key -subj "/C=IN/ST=Maharashtra/L=Mumbai/O=Self/OU=Learning/CN=minex.com"
-
 # convert the certificate and its key to base64 encoded
 cat minex.crt | base64 && cat minex.key | base64
 
 # create tls secret
 kubectl apply -f tlsCertSecret.yaml
+
+#--- install cert manager for tls
+kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
+
+kubectl apply -f letsencryptClusterIssuer.yaml
+kubectl apply -f letsencryptCertificate.yaml
+
+kubectl apply -f selfsignedClusterIssuer.yaml
+kubectl apply -f selfsignedCertificate.yaml
