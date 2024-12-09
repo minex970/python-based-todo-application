@@ -57,3 +57,17 @@
     ├── load-testing.js
     └── steps.sh
     ```
+
+4. Application with [Ingress with SSL/TLS](https://minex.hashnode.dev/securing-todo-apps-implement-kubernetes-ingress-with-ssltls)
+
+    Refer to the docs for steps.
+    ```
+    k8s-manifests/
+    ├── cert-manager
+    │   ├── letsencryptCertificate.yaml
+    │   ├── letsencryptClusterIssuer.yaml
+    │   ├── selfsignedCertificate.yaml
+    │   └── selfsignedClusterIssuer.yaml
+    └── route
+        └── appIngress.yaml
+    ```

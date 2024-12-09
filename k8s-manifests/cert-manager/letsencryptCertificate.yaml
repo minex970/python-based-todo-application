@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: todo-letsencrypt-cert
+  namespace: todo-ns
+spec:
+  secretName: todo-letsencrypt-tls
+  duration: 2160h # 90 days
+  renewBefore: 360h # 15 days before expiration
+  issuerRef:
+    name: todo-letsencrypt
+    kind: ClusterIssuer
+  commonName: todo.minex.com
+  dnsNames:
+  - todo.minex.com
