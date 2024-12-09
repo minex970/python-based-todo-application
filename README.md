@@ -28,6 +28,10 @@
     └── README.md
     ```
 
+    ```
+    git clone --branch docker-compose https://github.com/minex970/python-based-todo-application.git
+    ```
+
 2. Orchestration using [kubernetes](https://minex.hashnode.dev/how-to-deploy-todo-apps-with-kubernetes-a-step-by-step-guide)
 
     Refer to the docs/kubernetes-steps.sh if needed.
@@ -44,6 +48,10 @@
         └── postgresSecret.yaml
     ```
 
+    ```
+    git clone --branch k8s-base https://github.com/minex970/python-based-todo-application.git
+    ```
+
 3. Auto-scaling: [HPA in kubernetes](https://minex.hashnode.dev/how-to-auto-scale-todo-apps-on-kubernetes-for-better-performance)
 
     Refer to the tests/steps.sh if needed.
@@ -58,6 +66,10 @@
     └── steps.sh
     ```
 
+    ```
+    git clone --branch k8s-autoscaling https://github.com/minex970/python-based-todo-application.git
+    ```
+
 4. Application with [Ingress with SSL/TLS](https://minex.hashnode.dev/securing-todo-apps-implement-kubernetes-ingress-with-ssltls)
 
     Refer to the docs for steps.
@@ -70,4 +82,8 @@
     │   └── selfsignedClusterIssuer.yaml
     └── route
         └── appIngress.yaml
+    ```
+
+    ```
+    git clone --branch k8s-ingress-ssl https://github.com/minex970/python-based-todo-application.git
     ```
