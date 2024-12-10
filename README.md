@@ -6,12 +6,12 @@
 ## Architecture Diagram:
 ```mermaid
 graph TD;
-  client([Client]) -.-> ingress[Ingress controller];
-  ingress[Ingress controller] -.-> n-ingress[Ingress resources];
-  cert-manager[Cert-Manager] -.-> cert-resource[Issuer and certificate];
+  client([Client]) -...-> ingress[Ingress controller];
+  ingress[Ingress controller] -...-> n-ingress[Ingress resources];
+  cert-manager[Cert-Manager] -...-> cert-resource[Issuer and certificate];
   n-ingress --> path1["/"] --> service1[app-svc:80];
   n-ingress --> path2["/health"] -->service1[app-svc:80];
-  App -.-> service2[pg-svc:5432]
+  App -...-> service2[pg-svc:5432]
 
   subgraph Cluster
   ingress
@@ -20,7 +20,7 @@ graph TD;
   subgraph Namespace
   n-ingress;
   cert-resource;
-  cert-resource -.-> n-ingress;
+  cert-resource -...-> n-ingress;
   service1 --> pod1[app1-pod];
   service1 --> pod2[app1-pod];
   path1
@@ -56,14 +56,14 @@ graph TD;
   classDef cluster fill:#fff,stroke:#bbb,stroke-width:4px,color:#326ce5,font-size:26px;
   classDef outer fill:#d97706,stroke:#b86004,stroke-width:4px,color:#fff,font-size:26px;
   classDef path fill:#28a745,stroke:#155724,stroke-width:4px,color:#fff,font-size:24px;
-  classDef arrowColor stroke:#dcdcdc,stroke-width:4px;
+  classDef arrowColor stroke:#dcdcdc,stroke-width:6px;
 
   class n-ingress,postgres-secret,postgres-config,postgres-init-config,cert-resource,service1,service2,pod1,pod2,pod3,pod4,pod5 k8s;
   class client plain;
   class Cluster,Namespace,App,Config-map,Secret,Database cluster;
   class ingress,cert-manager outer;
   class path1,path2 path;
-  linkStyle default stroke:#dcdcdc,stroke-width:4px;
+  linkStyle default stroke:#dcdcdc,stroke-width:6px;
 ```
 
 ## Documentation/Blogs:
