@@ -3,6 +3,60 @@
 ## Application image:
 ![image](https://github.com/user-attachments/assets/bbc2b989-e468-4e01-aa19-c4061a204126)
 
+## Architecture Diagram:
+```mermaid
+graph LR;
+  client([client])-. cloud <br> load balancer .->ingress[Ingress controller];
+  ingress[Ingress controller]-.->n-ingress[Ingress resources];
+  cert-manager[Cert-Manager]-.->cert-resource[Issuer and certificate];
+  n-ingress-->|/|service1[app-svc:80];
+  n-ingress-->|/health|service1[app-svc:80];
+  App -.-> service2[pg-svc:5432]
+
+  subgraph cluster
+  ingress
+  cert-manager
+
+  subgraph namespace
+  n-ingress;
+  cert-resource;
+  cert-resource -.-> n-ingress;
+  service1-->pod1[app1-pod];
+  service1-->pod2[app1-pod];
+
+  subgraph App
+  pod1
+  pod2
+  end
+  subgraph config-map
+  postgres-config
+  postgres-init-config
+  end
+  subgraph secret
+  postgres-secret
+  end
+
+  service2[pg-svc:5432]-->pod3[postgresql-1];
+  service2[pg-svc:5432]-->pod4[postgresql-2];
+  service2[pg-svc:5432]-->pod5[postgresql-3];
+
+  subgraph Postgres cluster
+  pod3
+  pod4
+  pod5
+
+  end
+  end
+  end
+
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
+  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+  class n-ingress,postgres-secret,postgres-config,postgres-init-config,cert-resource,service1,service2,pod1,pod2,pod3,pod4,pod5 k8s;
+  class client plain;
+  class cluster cluster;
+```
+
 ## Documentation/Blogs:
 
 1. Orchestration using 
