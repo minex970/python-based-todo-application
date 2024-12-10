@@ -5,42 +5,44 @@
 
 ## Architecture Diagram:
 ```mermaid
-graph LR;
-  client([client])-. cloud <br> load balancer .->ingress[Ingress controller];
-  ingress[Ingress controller]-.->n-ingress[Ingress resources];
-  cert-manager[Cert-Manager]-.->cert-resource[Issuer and certificate];
-  n-ingress-->|/|service1[app-svc:80];
-  n-ingress-->|/health|service1[app-svc:80];
+graph TD;
+  client([Client]) -.-> ingress[Ingress controller];
+  ingress[Ingress controller] -.-> n-ingress[Ingress resources];
+  cert-manager[Cert-Manager] -.-> cert-resource[Issuer and certificate];
+  n-ingress --> path1["/"] --> service1[app-svc:80];
+  n-ingress --> path2["/health"] -->service1[app-svc:80];
   App -.-> service2[pg-svc:5432]
 
-  subgraph cluster
+  subgraph Cluster
   ingress
   cert-manager
 
-  subgraph namespace
+  subgraph Namespace
   n-ingress;
   cert-resource;
   cert-resource -.-> n-ingress;
-  service1-->pod1[app1-pod];
-  service1-->pod2[app1-pod];
+  service1 --> pod1[app1-pod];
+  service1 --> pod2[app1-pod];
+  path1
+  path2
 
   subgraph App
   pod1
   pod2
   end
-  subgraph config-map
+  subgraph Config-map
   postgres-config
   postgres-init-config
   end
-  subgraph secret
+  subgraph Secret
   postgres-secret
   end
 
-  service2[pg-svc:5432]-->pod3[postgresql-1];
-  service2[pg-svc:5432]-->pod4[postgresql-2];
-  service2[pg-svc:5432]-->pod5[postgresql-3];
+  service2[pg-svc:5432] --> pod3[postgresql-1];
+  service2[pg-svc:5432] --> pod4[postgresql-2];
+  service2[pg-svc:5432] --> pod5[postgresql-3];
 
-  subgraph Postgres cluster
+  subgraph Database
   pod3
   pod4
   pod5
@@ -49,12 +51,19 @@ graph LR;
   end
   end
 
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
+  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000,font-size:40px;
+  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff,font-size:26px;
+  classDef cluster fill:#fff,stroke:#bbb,stroke-width:4px,color:#326ce5,font-size:26px;
+  classDef outer fill:#d97706,stroke:#b86004,stroke-width:4px,color:#fff,font-size:26px;
+  classDef path fill:#28a745,stroke:#155724,stroke-width:4px,color:#fff,font-size:24px;
+  classDef arrowColor stroke:#dcdcdc,stroke-width:4px;
+
   class n-ingress,postgres-secret,postgres-config,postgres-init-config,cert-resource,service1,service2,pod1,pod2,pod3,pod4,pod5 k8s;
   class client plain;
-  class cluster cluster;
+  class Cluster,Namespace,App,Config-map,Secret,Database cluster;
+  class ingress,cert-manager outer;
+  class path1,path2 path;
+  linkStyle default stroke:#dcdcdc,stroke-width:4px;
 ```
 
 ## Documentation/Blogs:
